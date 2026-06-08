@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  api:
+    build: .
+    container_name: api-sesion6
+    ports:
+      - "3001:3000"
+    networks:
+      - red-sesion6
+    depends_on:
+      - mongo
+    volumes:
+      - api-datos:/app
+
+  mongo:
+    image: mongo:7
+    container_name: mongo-sesion6
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: curso
+      MONGO_INITDB_ROOT_PASSWORD: curso123
+    ports:
+      - "27019:27017"
+    networks:
+      - red-sesion6
+    volumes:
+      - mongo-datos:/data/db
+
+volumes:
+  api-datos:
+  mongo-datos:
+
+networks:
+  red-sesion6:
+    driver: bridge
