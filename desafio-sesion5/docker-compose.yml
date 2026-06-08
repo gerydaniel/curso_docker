@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: mongo-desafio5
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: curso
+      MONGO_INITDB_ROOT_PASSWORD: curso123
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-datos:/data/db
+    networks:
+      - red-desafio5
+
+  redis:
+    image: redis:8-alpine
+    container_name: redis-desafio5
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-datos:/data
+    networks:
+      - red-desafio5
+
+volumes:
+  mongo-datos:
+  redis-datos:
+
+networks:
+  red-desafio5:
+    driver: bridge
